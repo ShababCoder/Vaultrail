@@ -220,128 +220,45 @@ window.firebaseFns = {
     document.getElementById(fieldId).classList.toggle('invalid', invalid);
   }
   
-document.getElementById('panelLogin').addEventListener('submit', async e => {
-  e.preventDefault();
-
-  const email = document.getElementById('loginEmail');
-  const pass = document.getElementById('loginPassword');
-
-  const emailOk = /^\S+@\S+\.\S+$/.test(email.value);
-  const passOk = pass.value.length >= 6;
-
-  setInvalid('loginEmailField', !emailOk);
-  setInvalid('loginPasswordField', !passOk);
-
-  if (!emailOk || !passOk) return;
-
-  try {
-    await firebaseFns.signInWithEmailAndPassword(
-      firebaseAuth,
-      email.value.trim(),
-      pass.value
-    );
-
-    window.location.href = 'add-card.html';
-
-  } catch (err) {
-
-    switch (err.code) {
-
-      case 'auth/user-not-found':
-        alert('Account not found');
-        break;
-
-      case 'auth/wrong-password':
-        alert('Incorrect password');
-        break;
-
-      case 'auth/invalid-credential':
-        alert('Invalid email or password');
-        break;
-
-      default:
-        alert(err.message);
-
+document.getElementById('panelLogin').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail');
+    const pass = document.getElementById('loginPassword');
+    const emailOk = /\S+@\S+\.\S+/.test(email.value);
+    const passOk = pass.value.length >= 6;
+    setInvalid('loginEmailField', !emailOk);
+    setInvalid('loginPasswordField', !passOk);
+    if (emailOk && passOk) {
+      window.location.href = 'add-card.html';
     }
-
-  }
-});
-
+  });
   
+  
+  document.getElementById('panelSignup').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('suName');
+    const email = document.getElementById('suEmail');
+    const phone = document.getElementById('suPhone');
+    const pass = document.getElementById('suPassword');
+    const confirm = document.getElementById('suConfirm');
+    const terms = document.getElementById('suTerms');
 
-document.getElementById('panelSignup').addEventListener('submit', async e => {
-  e.preventDefault();
+    const nameOk = name.value.trim().length > 1;
+    const emailOk = /\S+@\S+\.\S+/.test(email.value);
+    const phoneOk = phone.value.trim().length >= 7;
+    const passOk = pass.value.length >= 6;
+    const confirmOk = confirm.value === pass.value && pass.value.length > 0;
 
-  const name = document.getElementById('suName');
-  const email = document.getElementById('suEmail');
-  const phone = document.getElementById('suPhone');
-  const pass = document.getElementById('suPassword');
-  const confirm = document.getElementById('suConfirm');
-  const terms = document.getElementById('suTerms');
+    setInvalid('suNameField', !nameOk);
+    setInvalid('suEmailField', !emailOk);
+    setInvalid('suPhoneField', !phoneOk);
+    setInvalid('suConfirmField', !confirmOk);
 
-  const nameOk = name.value.trim().length >= 2;
-  const emailOk = /^\S+@\S+\.\S+$/.test(email.value);
-  const phoneOk = phone.value.trim().length >= 7;
-  const passOk = pass.value.length >= 8;
-  const confirmOk = pass.value === confirm.value;
-
-  setInvalid('suNameField', !nameOk);
-  setInvalid('suEmailField', !emailOk);
-  setInvalid('suPhoneField', !phoneOk);
-  setInvalid('suConfirmField', !confirmOk);
-
-  if (
-    !nameOk ||
-    !emailOk ||
-    !phoneOk ||
-    !passOk ||
-    !confirmOk ||
-    !terms.checked
-  ) {
-    return;
-  }
-
-  try {
-
-    const cred =
-      await firebaseFns.createUserWithEmailAndPassword(
-        firebaseAuth,
-        email.value.trim(),
-        pass.value
-      );
-
-    await firebaseFns.updateProfile(
-      cred.user,
-      {
-        displayName: name.value.trim()
-      }
-    );
-
-    window.location.href = 'add-card.html';
-
-  } catch (err) {
-
-    switch (err.code) {
-
-      case 'auth/email-already-in-use':
-        alert('Email already registered');
-        break;
-
-      case 'auth/weak-password':
-        alert('Password is too weak');
-        break;
-
-      case 'auth/invalid-email':
-        alert('Invalid email address');
-        break;
-
-      default:
-        alert(err.message);
-
+    if (nameOk && emailOk && phoneOk && passOk && confirmOk && terms.checked) {
+      VaultState.set('user', { name: name.value.trim() });
+      window.location.href = 'add-card.html';
     }
-
-  }
-});
+  });
 
 
   document.getElementById('forgotLink').addEventListener('click', e => {
