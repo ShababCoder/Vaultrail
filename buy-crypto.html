@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose a coin — VaultRail</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="demo-banner">PROTOTYPE BUILD — prices shown are static demo values, not a live market feed.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="flow-shell">
+  <div class="container">
+    <div class="flow-top">
+      <div>
+        <span class="eyebrow">Buy crypto</span>
+        <h1 style="margin-bottom:0;">Choose a cryptocurrency</h1>
+      </div>
+      <a href="dashboard.html" class="btn btn-ghost">← Back</a>
+    </div>
+
+    <div class="coin-grid" id="coinGrid"></div>
+  </div>
+</div>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/crypto-data.js"></script>
+<script>
+  const grid = document.getElementById('coinGrid');
+  grid.innerHTML = CRYPTO_LIST.map(c => {
+    const up = c.change >= 0;
+    return `
+      <button class="coin-card" data-id="${c.id}">
+        <div class="coin-disc" style="background:${c.color};">${c.symbol}</div>
+        <h4>${c.name}</h4>
+        <div class="coin-price">${vrFormatUSD(c.price)}</div>
+        <div class="coin-change ${up ? 'up' : 'down'}">${up ? '▲' : '▼'} ${Math.abs(c.change)}%</div>
+      </button>`;
+  }).join('');
+
+  grid.querySelectorAll('.coin-card').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = 'purchase.html?coin=' + card.dataset.id;
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processing — VaultRail</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="demo-banner">PROTOTYPE BUILD — this is a simulated process. No real card or bank is contacted.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="flow-shell">
+  <div class="container" style="max-width:560px;">
+    <div class="panel">
+
+      <div id="loadingView">
+        <div class="loader-stage">
+          <div class="loader-ring"></div>
+          <div class="loader-status" id="statusText">Starting…</div>
+          <div class="progress-bar"><div class="progress-fill" id="fillBar"></div></div>
+        </div>
+      </div>
+
+      <div id="resultView" class="result-panel hidden">
+        <div class="result-icon ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h2 id="resultTitle">Demo checkpoint reached</h2>
+        <p id="resultText">This is where a real product would show your result.</p>
+        <div class="result-actions">
+          <a href="dashboard.html" class="btn btn-ghost">Back to dashboard</a>
+          <a href="index.html" class="btn btn-primary">Return home</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</main>
+
+<script src="js/main.js"></script>
+<script>
+  const type = vrGetParam('type') || 'balance';
+
+  const copy = {
+    balance: {
+      messages: ['Contacting card network…', 'Verifying card details…', 'Retrieving balance…', 'Finalizing…'],
+      title: 'Demo checkpoint: balance check complete',
+      text: 'In the full product, this is where your available card balance would appear. This prototype stops here by design.'
+    },
+    transfer: {
+      messages: ['Contacting card network…', 'Verifying bank details…', 'Authorizing transfer…', 'Finalizing…'],
+      title: 'Demo checkpoint: transfer flow complete',
+      text: 'In the full product, this is where a transfer confirmation and reference number would appear. This prototype stops here by design.'
+    }
+  };
+
+  const data = copy[type] || copy.balance;
+
+  document.getElementById('resultTitle').textContent = data.title;
+  document.getElementById('resultText').textContent = data.text;
+
+  runProcessingSequence({
+    statusEl: document.getElementById('statusText'),
+    fillEl: document.getElementById('fillBar'),
+    messages: data.messages,
+    totalMs: 6000,
+    onDone() {
+      document.getElementById('loadingView').classList.add('hidden');
+      document.getElementById('resultView').classList.remove('hidden');
+    }
+  });
+</script>
+</body>
+</html>

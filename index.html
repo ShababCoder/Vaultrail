@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VaultRail — Turn your card into crypto</title>
+<meta name="description" content="VaultRail is a demo prototype for card-to-crypto purchases.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="demo-banner">Live crypto purchasing platform where users can buy, and  digital assets w8th credit or debit and amex card. Transactions are processed in real time through integrated payment and blockchain systems.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="auth.html" class="btn btn-ghost">Log in</a>
+      <a href="auth.html?mode=signup" class="btn btn-primary">Get started</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Card-to-crypto, simplified</span>
+        <h1>Turn your card into <em>crypto</em>, in minutes.</h1>
+        <p class="hero-sub">Add a Visa, Mastercard, Amex or Verve card, choose a coin, and buy at a live rate — all from one clean, bank-grade interface.</p>
+        <div class="hero-ctas">
+          <a href="auth.html?mode=signup" class="btn btn-primary btn-lg">Get started</a>
+          <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works</a>
+        </div>
+        <div class="hero-trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg> Encrypted by design</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Instant network detection</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12l5-5M4 12l5 5"/></svg> 5 supported cryptocurrency</span>
+        </div>
+        
+      </div>
+      <div class="vault-stage" aria-hidden="true">
+        <div class="vault-card">
+          <div class="vc-top"><div class="vc-chip"></div><span class="vc-network">VISA</span></div>
+          <div class="vc-number">•••• •••• •••• 4412</div>
+          <div class="vc-bottom"><span class="vc-name">A. OKONKWO</span><span class="vc-exp">08/29</span></div>
+        </div>
+        <div class="vault-card bronze-fill">
+          <div class="vc-top"><div class="vc-chip"></div><span class="vc-network">Mastercard</span></div>
+          <div class="vc-number">•••• •••• •••• 9981</div>
+          <div class="vc-bottom"><span class="vc-name">S. NAKAMURA</span><span class="vc-exp">02/28</span></div>
+        </div>
+        <div class="vault-card">
+          <div class="vc-top"><div class="vc-chip"></div><span class="vc-network">Verve</span></div>
+          <div class="vc-number">•••• •••• •••• 3307</div>
+          <div class="vc-bottom"><span class="vc-name">T. ADEYEMI</span><span class="vc-exp">11/27</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="ticker-wrap">
+        <div class="ticker" id="tickerStrip"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">The process</span>
+        <h2>Three steps, start to finish</h2>
+        <p>A streamlined flow for executing real-time crypto transactions</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <h3>Add a card</h3>
+          <p>Enter card details into a banking-style form. The network — Visa, Mastercard, Amex or Verve — is detected as you type.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <h3>Choose an action</h3>
+          <p>Check balance, buy crypto, or transfer to a bank account, all from one dashboard.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <h3>Confirm and go</h3>
+          <p>Pick a coin, set an amount, and review the order before confirming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Built like a real product</span>
+        <h2>Everything a card-to-crypto app needs</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+          <h3>Multi-network cards</h3>
+          <p>Visa, Mastercard, American Express and Verve, recognized live from the card number.</p>
+        </div>
+        <div class="feature">
+          <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3>Real-time-style rates</h3>
+          <p>A live-feeling market ticker and rate calculator for five major coins.</p>
+        </div>
+        <div class="feature">
+          <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg></div>
+          <h3>Bank-style security cues</h3>
+          <p>Encryption badges, masked numbers and a CVC flip — the visual language people trust.</p>
+        </div>
+        <div class="feature">
+          <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+          <h3>Balance & transfer screens</h3>
+          <p>Dashboard actions for checking balance and transferring to a bank account.</p>
+        </div>
+        <div class="feature">
+          <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v16h16M8 16l3-4 3 2 4-6"/></svg></div>
+          <h3>Order summary panel</h3>
+          <p>Rate, fee and total laid out clearly before anyone confirms a purchase.</p>
+        </div>
+        <div class="feature">
+          <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div>
+          <h3>Full auth flow</h3>
+          <p>Login and signup in one screen, with password strength and validation built in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container center">
+      <h2>Ready to walk through it?</h2>
+      <p class="muted" style="max-width:480px;margin:0 auto 26px;">Create a demo account and step through the full add-card-to-purchase flow.</p>
+      <a href="auth.html?mode=signup" class="btn btn-primary btn-lg">Get started</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+        <p>A demo prototype for a card-to-crypto purchase experience. Built for presentation, not production.</p>
+        <a class="whatsapp-link" href="https://wa.me/15551234567" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5ZM12 21.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.2 12C2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8Z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="index.html">Home</a>
+        <a href="auth.html">Log in / Sign up</a>
+        <a href="add-card.html">Add a card</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of use</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> VaultRail. Prototype build — for demonstration purposes only.</span>
+      <span>Designed for a client walkthrough.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/crypto-data.js"></script>
+<script src="js/main.js"></script>
+<<script>
+const strip = document.getElementById('tickerStrip');
+
+// format helper (keep yours if already exists)
+function vrFormatUSD(value) {
+  return `$${Number(value).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
+}
+
+// fetch live crypto data
+async function fetchCryptoData() {
+  const ids = "bitcoin,ethereum,solana,binancecoin,ripple,dogecoin";
+
+  const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  return Object.entries(data).map(([id, val]) => ({
+    id,
+    symbol: id.toUpperCase(),
+    price: val.usd,
+    change: val.usd_24h_change
+  }));
+}
+
+// render ticker
+async function renderTicker() {
+  try {
+    const cryptoList = await fetchCryptoData();
+
+    if (!strip) return;
+
+    const items = [...cryptoList, ...cryptoList].map(c => {
+      const up = c.change >= 0;
+
+      return `
+        <span class="ticker-item">
+          <b>${c.symbol}</b>
+          ${vrFormatUSD(c.price)}
+          <span class="${up ? 'up' : 'down'}">
+            ${up ? '▲' : '▼'} ${Math.abs(c.change).toFixed(2)}%
+          </span>
+        </span>
+      `;
+    }).join('');
+
+    strip.innerHTML = items;
+
+  } catch (err) {
+    console.error("Ticker error:", err);
+  }
+}
+
+// initial load
+renderTicker();
+
+// live update every 10 seconds
+setInterval(renderTicker, 10000);
+</script>
+</body>
+</html>

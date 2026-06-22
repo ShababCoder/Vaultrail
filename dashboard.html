@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose an action — VaultRail</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="demo-banner">PROTOTYPE BUILD — every screen in this product is simulated for demonstration purposes.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="flow-shell">
+  <div class="container">
+    <div class="flow-top">
+      <div>
+        <span class="eyebrow">Step 2 of 3</span>
+        <h1 style="margin-bottom:0;">What would you like to do?</h1>
+      </div>
+      <div class="flow-track">
+        <span class="dot on"></span><span class="seg"></span>
+        <span class="dot on"></span><span class="seg"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <div class="card-chip" id="cardChip">
+      <div class="chip-mini"></div>
+      <div class="chip-text"><b id="chipNumber">•••• •••• •••• ••••</b><span id="chipName">Card on file</span></div>
+    </div>
+
+    <div class="action-grid">
+      <button class="action-card" id="btnBalance">
+        <div class="a-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/><circle cx="17" cy="14.5" r="1.4"/></svg></div>
+        <h3>Check balance</h3>
+        <p>See the available balance on the card you just added.</p>
+        <div class="a-arrow">Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+
+      <button class="action-card" id="btnCrypto">
+        <div class="a-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 8h4a2 2 0 0 1 0 4H9m0 0h4.5a2 2 0 0 1 0 4H9m1.5-8V6m0 12v-2"/></svg></div>
+        <h3>Buy crypto</h3>
+        <p>Choose a coin and purchase it using this card.</p>
+        <div class="a-arrow">Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+
+      <button class="action-card" id="btnTransfer">
+        <div class="a-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h14M12 5l5 7-5 7"/></svg></div>
+        <h3>Transfer to bank</h3>
+        <p>Move funds from this card to a linked bank account.</p>
+        <div class="a-arrow">Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+    </div>
+  </div>
+</div>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/card.js"></script>
+<script>
+  const card = VaultState.get('card');
+  if (card) {
+    document.getElementById('chipNumber').textContent = CardLogic.maskedNumber('', card.network).replace('••••', '•••• ' + card.last4).slice(0, 0) || '';
+    document.getElementById('chipNumber').textContent = (card.network === 'amex' ? '•••• •••••• ' : '•••• •••• •••• ') + card.last4;
+    document.getElementById('chipName').textContent = `${CardLogic.networkLabel(card.network)} · ${card.holder}`;
+  }
+
+  document.getElementById('btnBalance').addEventListener('click', () => {
+    window.location.href = 'balance-check.html?type=balance';
+  });
+  document.getElementById('btnTransfer').addEventListener('click', () => {
+    window.location.href = 'balance-check.html?type=transfer';
+  });
+  document.getElementById('btnCrypto').addEventListener('click', () => {
+    window.location.href = 'buy-crypto.html';
+  });
+</script>
+</body>
+</html>

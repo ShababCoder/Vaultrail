@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy crypto — VaultRail</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="demo-banner">PROTOTYPE BUILD — rates and fees shown are static demo values.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="flow-shell">
+  <div class="container">
+    <div class="flow-top">
+      <div>
+        <span class="eyebrow" id="coinEyebrow">Buy crypto</span>
+        <h1 style="margin-bottom:0;" id="coinTitle">Set an amount</h1>
+      </div>
+      <a href="buy-crypto.html" class="btn btn-ghost">← Change coin</a>
+    </div>
+
+    <div class="flow-grid">
+      <div class="panel">
+        <h2>Amount</h2>
+        <div class="amount-toggle">
+          <button id="modeUSD" class="active" type="button">Pay in USD</button>
+          <button id="modeCoin" type="button">Enter coin amount</button>
+        </div>
+
+        <div class="field">
+          <label id="amountLabel" for="amountInput">Amount in USD</label>
+          <input class="input" type="number" id="amountInput" min="0" step="0.01" placeholder="0.00">
+        </div>
+
+        <div class="quick-amounts" id="quickAmounts">
+          <button data-val="50">$50</button>
+          <button data-val="100">$100</button>
+          <button data-val="250">$250</button>
+          <button data-val="500">$500</button>
+        </div>
+
+        <div class="panel-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <span>Rate locks for 5 minutes once you continue to checkout. This is a demo rate, not a live market price.</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Order summary</h2>
+        <div class="summary-row"><span>Coin</span><b id="sumCoin">—</b></div>
+        <div class="summary-row"><span>Rate</span><b id="sumRate">—</b></div>
+        <div class="summary-row"><span>You receive</span><b id="sumQty">—</b></div>
+        <div class="summary-row"><span>Network fee (1.5%)</span><b id="sumFee">—</b></div>
+        <div class="summary-row total"><span>Total charge</span><b id="sumTotal">$0.00</b></div>
+        <button class="btn btn-primary btn-lg btn-block mt-30" id="buyNowBtn" disabled>Buy now</button>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/crypto-data.js"></script>
+<script>
+  const coinId = vrGetParam('coin') || 'btc';
+  const coin = vrFindCoin(coinId) || CRYPTO_LIST[0];
+
+  document.getElementById('coinEyebrow').textContent = 'Buy ' + coin.symbol;
+  document.getElementById('coinTitle').textContent = `Buy ${coin.name} (${coin.symbol})`;
+  document.getElementById('sumCoin').textContent = `${coin.name} (${coin.symbol})`;
+  document.getElementById('sumRate').textContent = `1 ${coin.symbol} = ${vrFormatUSD(coin.price)}`;
+
+  const amountInput = document.getElementById('amountInput');
+  const amountLabel = document.getElementById('amountLabel');
+  const modeUSD = document.getElementById('modeUSD');
+  const modeCoin = document.getElementById('modeCoin');
+  const quickAmounts = document.getElementById('quickAmounts');
+  const buyNowBtn = document.getElementById('buyNowBtn');
+
+  let mode = 'usd'; // 'usd' | 'coin'
+  const FEE_RATE = 0.015;
+
+  function recalc() {
+    const raw = parseFloat(amountInput.value);
+    let usd, qty;
+    if (!raw || raw <= 0) {
+      document.getElementById('sumQty').textContent = '—';
+      document.getElementById('sumFee').textContent = '—';
+      document.getElementById('sumTotal').textContent = '$0.00';
+      buyNowBtn.disabled = true;
+      return;
+    }
+    if (mode === 'usd') {
+      usd = raw;
+      qty = usd / coin.price;
+    } else {
+      qty = raw;
+      usd = qty * coin.price;
+    }
+    const fee = usd * FEE_RATE;
+    const total = usd + fee;
+
+    document.getElementById('sumQty').textContent = `${qty.toFixed(6)} ${coin.symbol}`;
+    document.getElementById('sumFee').textContent = vrFormatUSD(fee);
+    document.getElementById('sumTotal').textContent = vrFormatUSD(total);
+    buyNowBtn.disabled = false;
+
+    buyNowBtn.dataset.usd = usd.toFixed(2);
+    buyNowBtn.dataset.qty = qty.toFixed(6);
+    buyNowBtn.dataset.total = total.toFixed(2);
+  }
+
+  amountInput.addEventListener('input', recalc);
+
+  modeUSD.addEventListener('click', () => {
+    mode = 'usd'; modeUSD.classList.add('active'); modeCoin.classList.remove('active');
+    amountLabel.textContent = 'Amount in USD';
+    quickAmounts.classList.remove('hidden');
+    amountInput.value = '';
+    recalc();
+  });
+  modeCoin.addEventListener('click', () => {
+    mode = 'coin'; modeCoin.classList.add('active'); modeUSD.classList.remove('active');
+    amountLabel.textContent = `Amount in ${coin.symbol}`;
+    quickAmounts.classList.add('hidden');
+    amountInput.value = '';
+    recalc();
+  });
+
+  quickAmounts.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      amountInput.value = btn.dataset.val;
+      recalc();
+    });
+  });
+
+  buyNowBtn.addEventListener('click', () => {
+    VaultState.set('order', {
+      coinId: coin.id,
+      coinSymbol: coin.symbol,
+      coinName: coin.name,
+      usd: buyNowBtn.dataset.usd,
+      qty: buyNowBtn.dataset.qty,
+      total: buyNowBtn.dataset.total
+    });
+    window.location.href = 'checkout.html';
+  });
+</script>
+</body>
+</html>

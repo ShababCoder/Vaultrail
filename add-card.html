@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add a card — VaultRail</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="demo-banner">PROTOTYPE BUILD — this form does not transmit or store any real card data. Use made-up details.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="flow-shell">
+  <div class="container">
+    <div class="flow-top">
+      <div>
+        <span class="eyebrow">Step 1 of 3</span>
+        <h1 style="margin-bottom:0;">Add a payment card</h1>
+      </div>
+      <div class="flow-track">
+        <span class="dot on"></span><span class="seg"></span>
+        <span class="dot"></span><span class="seg"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <div class="flow-grid">
+      <div>
+        <div class="vault-stage" style="height:220px;" aria-hidden="true">
+          <div class="vault-card" id="liveCard" style="position:relative; top:0; left:0; transform:none; width:100%; max-width:340px;">
+            <div class="vc-top">
+              <div class="vc-chip"></div>
+              <span class="vc-network" id="vcNetwork">Card</span>
+            </div>
+            <div class="vc-number" id="vcNumber">•••• •••• •••• ••••</div>
+            <div class="vc-bottom">
+              <span class="vc-name" id="vcName">CARDHOLDER NAME</span>
+              <span class="vc-exp" id="vcExp">MM / YY</span>
+            </div>
+          </div>
+        </div>
+        <div class="network-badges">
+          <span class="network-badge" data-net="visa">Visa</span>
+          <span class="network-badge" data-net="mastercard">Mastercard</span>
+          <span class="network-badge" data-net="amex">Amex</span>
+          <span class="network-badge" data-net="verve">Verve</span>
+        </div>
+        <div class="panel-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg>
+          <span>This card form is a visual prototype. The network badge above updates as you type, but no data leaves this page.</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Card details</h2>
+        <form id="cardForm" novalidate>
+          <div class="field" id="cnField">
+            <label for="cardNumber">Card number</label>
+            <input class="input" type="text" id="cardNumber" inputmode="numeric" placeholder="1234 5678 9012 3456" required>
+            <span class="field-error">Enter a card number.</span>
+          </div>
+          <div class="field" id="chnField">
+            <label for="cardHolder">Cardholder name</label>
+            <input class="input" type="text" id="cardHolder" placeholder="As shown on the card" required>
+            <span class="field-error">Enter the cardholder name.</span>
+          </div>
+          <div class="card-form-row2">
+            <div class="field" id="expField">
+              <label for="cardExp">Expiry date</label>
+              <input class="input" type="text" id="cardExp" placeholder="MM / YY" inputmode="numeric" required>
+              <span class="field-error">Enter a valid expiry date.</span>
+            </div>
+            <div class="field" id="cvcField">
+              <label for="cardCvc">CVC</label>
+              <input class="input" type="text" id="cardCvc" inputmode="numeric" placeholder="123" required>
+              <span class="field-error">Enter the security code.</span>
+            </div>
+          </div>
+          <label class="checkbox-row" style="margin-bottom:22px;"><input type="checkbox" checked> Save this card for future use</label>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Continue</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/card.js"></script>
+<script>
+  const cardNumber = document.getElementById('cardNumber');
+  const cardHolder = document.getElementById('cardHolder');
+  const cardExp = document.getElementById('cardExp');
+  const cardCvc = document.getElementById('cardCvc');
+
+  const vcNetwork = document.getElementById('vcNetwork');
+  const vcNumber = document.getElementById('vcNumber');
+  const vcName = document.getElementById('vcName');
+  const vcExp = document.getElementById('vcExp');
+
+  let currentNetwork = null;
+
+  function updateBadges(network) {
+    document.querySelectorAll('.network-badge').forEach(b => {
+      b.classList.toggle('detected', b.dataset.net === network);
+    });
+  }
+
+  cardNumber.addEventListener('input', () => {
+    const digits = cardNumber.value.replace(/\D/g, '');
+    currentNetwork = CardLogic.detectNetwork(digits);
+    cardNumber.value = CardLogic.formatNumber(digits, currentNetwork);
+    vcNetwork.textContent = currentNetwork ? CardLogic.networkLabel(currentNetwork) : 'Card';
+    vcNumber.textContent = digits ? CardLogic.formatNumber(digits.padEnd(0, ''), currentNetwork) || '•••• •••• •••• ••••' : '•••• •••• •••• ••••';
+    updateBadges(currentNetwork);
+  });
+
+  cardHolder.addEventListener('input', () => {
+    vcName.textContent = cardHolder.value.trim() ? cardHolder.value.toUpperCase() : 'CARDHOLDER NAME';
+  });
+
+  cardExp.addEventListener('input', () => {
+    cardExp.value = CardLogic.formatExpiry(cardExp.value);
+    vcExp.textContent = cardExp.value || 'MM / YY';
+  });
+
+  cardCvc.addEventListener('input', () => {
+    cardCvc.value = cardCvc.value.replace(/\D/g, '').slice(0, currentNetwork === 'amex' ? 4 : 3);
+  });
+
+  function setInvalid(fieldId, invalid) {
+    document.getElementById(fieldId).classList.toggle('invalid', invalid);
+  }
+
+  document.getElementById('cardForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const numDigits = cardNumber.value.replace(/\D/g, '');
+    const numOk = numDigits.length >= 12;
+    const nameOk = cardHolder.value.trim().length > 1;
+    const expOk = /^\d{2} \/ \d{2}$/.test(cardExp.value);
+    const cvcOk = cardCvc.value.length >= 3;
+
+    setInvalid('cnField', !numOk);
+    setInvalid('chnField', !nameOk);
+    setInvalid('expField', !expOk);
+    setInvalid('cvcField', !cvcOk);
+
+    if (numOk && nameOk && expOk && cvcOk) {
+      VaultState.set('card', {
+        last4: numDigits.slice(-4),
+        network: currentNetwork || 'visa',
+        holder: cardHolder.value.trim()
+      });
+      window.location.href = 'dashboard.html';
+    }
+  });
+</script>
+</body>
+</html>

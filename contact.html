@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — VaultRail</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="demo-banner">PROTOTYPE BUILD — this form does not send a real message.</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="auth.html" class="btn btn-ghost">Log in</a>
+      <a href="auth.html?mode=signup" class="btn btn-primary">Get started</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="page-head">
+    <div class="container">
+      <span class="eyebrow">Get in touch</span>
+      <h1>Questions about the prototype?</h1>
+      <p>Reach out and we'll get back to you, or message us directly on WhatsApp.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div>
+        <div class="contact-info-card">
+          <h4>Email</h4>
+          <p>hello@vaultrail.example</p>
+        </div>
+        <div class="contact-info-card">
+          <h4>WhatsApp</h4>
+          <p>Fastest way to reach us during a live walkthrough.</p>
+          <a class="whatsapp-link mt-30" href="https://wa.me/15551234567" target="_blank" rel="noopener" style="margin-top:14px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5ZM12 21.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.2 12C2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8Z"/></svg>
+            Message us
+          </a>
+        </div>
+        <div class="contact-info-card">
+          <h4>Hours</h4>
+          <p>Monday – Friday, 9am – 6pm</p>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="cName">Name</label>
+            <input class="input" type="text" id="cName" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="cEmail">Email</label>
+            <input class="input" type="email" id="cEmail" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cSubject">Subject</label>
+          <input class="input" type="text" id="cSubject" placeholder="What's this about?" required>
+        </div>
+        <div class="field">
+          <label for="cMessage">Message</label>
+          <textarea class="input" id="cMessage" rows="5" placeholder="Tell us a bit more..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Send message</button>
+        <div class="contact-success" id="contactSuccess">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          Demo: message captured. In the full product this would reach our team.
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span> VaultRail</a>
+        <p>A demo prototype for a card-to-crypto purchase experience. Built for presentation, not production.</p>
+        <a class="whatsapp-link" href="https://wa.me/15551234567" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5ZM12 21.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.2 12C2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8Z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="index.html">Home</a>
+        <a href="auth.html">Log in / Sign up</a>
+        <a href="add-card.html">Add a card</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of use</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> VaultRail. Prototype build — for demonstration purposes only.</span>
+      <span>Designed for a client walkthrough.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('contactSuccess').classList.add('show');
+    e.target.reset();
+  });
+</script>
+</body>
+</html>
